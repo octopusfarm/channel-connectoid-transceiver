@@ -13,9 +13,7 @@ request = encodeMapToJSON(requestParams);
 response = someFramework.sendRequestOverHTTPS(someURL, request);
 ```
 
-What if you want to replace JSON with protobuf, and HTTPS with HTTP/2? What if the URL changes? Now you have to find all the places with code like this and modify them.
-
-_Or..._
+What if you want to replace JSON with protobuf, and HTTPS with HTTP/2? What if the URL changes? Now you have to find all the places with code like this and modify them. This also means you'll need some feature flag boilerplate if you want to refactor a monolith's service out to a microservice.
 
 
 **Channel-Connectoid-Transceiver**
