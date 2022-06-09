@@ -13,7 +13,7 @@ request = encodeMapToJSON(requestParams);
 response = someFramework.sendRequestOverHTTPS(
     request,
     URL,
-    certificateAuthorityFilePath,
+    certificateFilePath,
     basicAuthCredentials,
     ...
 );
@@ -22,7 +22,7 @@ logResponse(response);
 
 Now your business logic is coupled directly to low-level implementation details. It works OK at first — but what if:
 * The URL changes?
-* The CA file has to go somewhere else?
+* The certificate file has to go somewhere else?
 * You need to switch from basic auth to OAuth2?
 * You want to try gRPC, so you have to replace HTTPS with HTTP/2 and JSON with protobuf?
 * You need to use a new logging mechanism?
