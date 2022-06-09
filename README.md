@@ -10,11 +10,21 @@ However, _after_ the request arrives at your Controller, at some point you have 
 
 ```
 request = encodeMapToJSON(requestParams);
-response = someFramework.sendRequestOverHTTPS(someURL, request);
+response = someFramework.sendRequestOverHTTPS(request, URL, certificateAuthorityFilePath, basicAuthCredentials, ...);
+logResponse(response);
 ```
 
-What if you want to replace JSON with protobuf, and HTTPS with HTTP/2? What if the URL changes? Now you have to find all the places with code like this and modify them. This also means you'll need some feature flag boilerplate if you want to refactor a monolith's service out to a microservice.
+Now your business logic is coupled directly to low-level implementation details. It works OK at first — but what if:
+* The URL changes?
+* The CA file has to go somewhere else?
+* You need to switch from basic auth to OAuth2?
+* You want to try gRPC, so you have to replace HTTPS with HTTP/2 and JSON with protobuf?
+* You need to use a new logging mechanism?
+* You realize that you forgot to log responses in some places, _after_ something went wrong in prod?
 
+Now you have to find ALL of the places where you talk to such services, and change things in all of them, and re-test all of them.
+
+_What if all that stuff was in a configuration file that you could change behind the scenes — even dynamically, at runtime?_ What if such a mechanism could even help you refactor monoliths into microservices?
 
 **Channel-Connectoid-Transceiver**
 
