@@ -10,7 +10,13 @@ However, _after_ the request arrives at your Controller, at some point you have 
 
 ```
 request = encodeMapToJSON(requestParams);
-response = someFramework.sendRequestOverHTTPS(request, URL, certificateAuthorityFilePath, basicAuthCredentials, ...);
+response = someFramework.sendRequestOverHTTPS(
+    request,
+    URL,
+    certificateAuthorityFilePath,
+    basicAuthCredentials,
+    ...
+);
 logResponse(response);
 ```
 
