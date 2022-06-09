@@ -1,6 +1,7 @@
 # channel-connectoid-transceiver
 
 **What if sending requests was as straightforward as _receiving_ them?**
+
 When your Controller receives a request, its contents have already been unserialized to a live data type: an object, an array, etc. You don't have to decode the JSON, XML, or whatever. Your controller works whether you call it over HTTPS, or from inside a unit test.
 
 More to the point, it works the same either way _because_ it does't know whether it's being called over HTTPS or from inside a test! You can swap that out any time you like without breaking any of your code.
@@ -18,6 +19,7 @@ _Or..._
 
 
 **Channel-Connectoid-Transceiver**
+
 This abstract communication mechanism makes calling a service very much like calling a method. Whether the service actually _is_ a method call, or a process running on the other end of a network connection using whatever encoding and transport, is invisible — _and that's the point._ You can swap out those details behind the scenes, even at runtime, without breaking whatever calls the service.
 
 You send an arbitrarily-nested ordered map — an array in PHP, an object in JS, etc. — and another comes back.
@@ -84,13 +86,13 @@ function handleResponse(Response $response) {
         // Comm and/or service errors will be in $result->errors()
     }
 }
-
 ```
 
 I've been using this pattern for years, and it has served me well. It's not the same as Guzzle or cURL, although it could use either as a back-end while communicating over HTTPS. (That is the usual use case: JSON or XML over HTTPS.) However, Channel is not specific to HTTPS or any other pipe. It can talk to anything over TCP, UDP, a UNIX socket, a queue (like SQS FIFO or Kafka), or (as described below) via method call.
 
 
 **Refactoring Monoliths to Microservices**
+
 If you have a monolith and want to peel off one of its services to run as a separate microservice (whether in the same language or another), you could do this:
 
 - Set up Channel to call whatever method(s) serve as the interface to your service. Make everything that calls those methods use Channel to talk to it instead. At this point, nothing is going over the wire.
